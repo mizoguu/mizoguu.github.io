@@ -1,0 +1,14 @@
+
+{
+  "name": "MIZOGU FIGHT K",
+  "short_name": "MizoguFight",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff9f0",
+  "description": "読み合い格闘カードゲーム MIZOGU FIGHT K",
+  "icons": [{
+    "src": "icon.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }]
+}
