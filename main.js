@@ -11,20 +11,25 @@ function startGame() {
   myHP = 4;
   oppHP = 4;
 
-  // ログ初期化（logのみ）
-  document.getElementById("log").innerHTML = "";
-  // スペシャルカードを表示
-  document.getElementById("specialInfo").innerText = `★カード：${mySpecial}（未使用）`;
+  updateSpecialInfo();
+  renderHP();
 
-  // ボタン表示
+  document.getElementById("log").innerText =
+    `あなたのスペシャルカード: ${mySpecial}（1回のみ）`;
+
   document.getElementById("actionArea").style.display = "block";
   document.getElementById("specialBtn").style.display = "inline-block";
-
-  renderHP();
 }
 
 function renderHP() {
-  document.getElementById("hpDisplay").innerText = `あなた: ${myHP} ／ 相手: ${oppHP}`;
+  const heart = "❤️";
+  document.getElementById("myHearts").innerText = heart.repeat(myHP);
+  document.getElementById("oppHearts").innerText = heart.repeat(oppHP);
+}
+
+function updateSpecialInfo() {
+  const text = specialUsed ? `★カード：${mySpecial}（使用済）` : `★カード：${mySpecial}`;
+  document.getElementById("specialInfo").innerText = text;
 }
 
 function chooseAction(playerMove) {
@@ -33,32 +38,33 @@ function chooseAction(playerMove) {
 
   let outcome = '';
   if (playerMove === enemyMove) {
-    outcome = 'あいこ！';
+    outcome = '😐 あいこ！';
   } else if (
     (playerMove === '攻撃' && enemyMove === '投げ') ||
     (playerMove === '防御' && enemyMove === '攻撃') ||
     (playerMove === '投げ' && enemyMove === '防御')
   ) {
-    outcome = 'あなたの勝ち！';
+    outcome = '🎉 あなたの勝ち！';
     oppHP--;
   } else {
-    outcome = 'あなたの負け！';
+    outcome = '😵 あなたの負け！';
     myHP--;
   }
 
   renderHP();
 
   if (myHP <= 0) {
-    document.getElementById("log").innerHTML += "<div>あなたの負け！ゲーム終了！</div>";
+    document.getElementById("log").innerText = "あなたの負け！ゲーム終了！";
     disableButtons();
     return;
   } else if (oppHP <= 0) {
-    document.getElementById("log").innerHTML += "<div>あなたの勝ち！ゲーム終了！</div>";
+    document.getElementById("log").innerText = "あなたの勝ち！ゲーム終了！";
     disableButtons();
     return;
   }
 
-  document.getElementById("log").innerHTML += `<div>あなた: ${playerMove} ／ 相手: ${enemyMove} → ${outcome}</div>`;
+  document.getElementById("log").innerText =
+    `あなた: ${playerMove} ／ 相手: ${enemyMove} → ${outcome}`;
 }
 
 function useSpecial() {
@@ -68,9 +74,9 @@ function useSpecial() {
   }
 
   specialUsed = true;
+  updateSpecialInfo();
   document.getElementById("specialBtn").style.display = "none";
-  document.getElementById("specialInfo").innerText = `★カード：${mySpecial}（使用済）`;
-  document.getElementById("log").innerHTML += `<div>★カード「${mySpecial}」を使用！（効果は未実装）</div>`;
+  document.getElementById("log").innerText += `\n★カード「${mySpecial}」を使用！（効果は未実装）`;
 }
 
 function disableButtons() {
