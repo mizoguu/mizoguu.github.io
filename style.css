@@ -1,12 +1,63 @@
-
 body {
-  font-family: sans-serif;
+  font-family: 'Courier New', monospace;
+  background-color: #111;
+  color: #fff;
   text-align: center;
-  padding: 2em;
-  background-color: #fff9f0;
+  padding: 20px;
 }
+
+h1 {
+  font-size: 1.8em;
+  color: #ffcc00;
+  text-shadow: 1px 1px #000;
+}
+
 button {
+  font-size: 1.2em;
+  margin: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 2px #000;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.card-btn {
+  background-color: #0044cc;
+}
+
+.card-btn:hover {
+  background-color: #0077ff;
+}
+
+#log.logbox {
+  margin: 20px auto;
+  padding: 10px;
+  border: 2px dashed #555;
+  width: 90%;
+  max-width: 400px;
+  background-color: #222;
+  white-space: pre-line;
+  min-height: 60px;
+}
+
+#hpBar {
+  margin: 10px auto;
   font-size: 1.5em;
-  padding: 1em 2em;
-  margin-top: 2em;
+}
+
+.badge {
+  background-color: gold;
+  color: black;
+  padding: 6px 10px;
+  margin: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
 }
