@@ -11,13 +11,12 @@ function startGame() {
   myHP = 4;
   oppHP = 4;
 
-  // スペシャルカードの常時表示
-  document.getElementById("specialInfo").innerText =
-    `★カード：${mySpecial}（未使用）`;
+  // ログ初期化（logのみ）
+  document.getElementById("log").innerHTML = "";
+  // スペシャルカードを表示
+  document.getElementById("specialInfo").innerText = `★カード：${mySpecial}（未使用）`;
 
-  // 初期ログ表示
-  document.getElementById("log").innerText = "ゲームスタート！";
-
+  // ボタン表示
   document.getElementById("actionArea").style.display = "block";
   document.getElementById("specialBtn").style.display = "inline-block";
 
@@ -25,8 +24,7 @@ function startGame() {
 }
 
 function renderHP() {
-  document.getElementById("hpDisplay").innerText =
-    `あなた: ${myHP} / 相手: ${oppHP}`;
+  document.getElementById("hpDisplay").innerText = `あなた: ${myHP} ／ 相手: ${oppHP}`;
 }
 
 function chooseAction(playerMove) {
@@ -50,20 +48,17 @@ function chooseAction(playerMove) {
 
   renderHP();
 
-  // 勝敗判定
   if (myHP <= 0) {
-    document.getElementById("log").innerText = "あなたの負け！ゲーム終了！";
+    document.getElementById("log").innerHTML += "<div>あなたの負け！ゲーム終了！</div>";
     disableButtons();
     return;
   } else if (oppHP <= 0) {
-    document.getElementById("log").innerText = "あなたの勝ち！ゲーム終了！";
+    document.getElementById("log").innerHTML += "<div>あなたの勝ち！ゲーム終了！</div>";
     disableButtons();
     return;
   }
 
-  // ログに追加で表示（ここがポイント）
-  document.getElementById("log").innerText =
-    `あなた: ${playerMove} ／ 相手: ${enemyMove} → ${outcome}`;
+  document.getElementById("log").innerHTML += `<div>あなた: ${playerMove} ／ 相手: ${enemyMove} → ${outcome}</div>`;
 }
 
 function useSpecial() {
@@ -74,14 +69,8 @@ function useSpecial() {
 
   specialUsed = true;
   document.getElementById("specialBtn").style.display = "none";
-
-  // ★カード使用ログは追記表示
-  document.getElementById("log").innerText +=
-    `\n★カード「${mySpecial}」を使用！（効果は未実装）`;
-
-  // スペシャルカード状態も更新
-  document.getElementById("specialInfo").innerText =
-    `★カード：${mySpecial}（使用済）`;
+  document.getElementById("specialInfo").innerText = `★カード：${mySpecial}（使用済）`;
+  document.getElementById("log").innerHTML += `<div>★カード「${mySpecial}」を使用！（効果は未実装）</div>`;
 }
 
 function disableButtons() {
