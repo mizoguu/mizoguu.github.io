@@ -28,7 +28,7 @@ function renderHP() {
 }
 
 function updateSpecialInfo() {
-  const text = specialUsed ? `★カード：${mySpecial}（使用済）` : `★カード：${mySpecial}`;
+  const text = specialUsed ? `★カード：${mySpecial}（使用済）` : `★カード：${mySpecial}（未使用）`;
   document.getElementById("specialInfo").innerText = text;
 }
 
