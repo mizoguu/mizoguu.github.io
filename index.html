@@ -11,13 +11,16 @@
   <h1>MIZOGU FIGHT K - Rev.A</h1>
   <p>iPhone対応PWA体験版</p>
 
+  <!-- ゲーム開始 -->
   <button onclick="startGame()">ゲーム開始</button>
 
-  <!-- ログ表示 -->
+  <!-- 勝敗ログ -->
   <div id="log"></div>
-  <div id="specialInfo" style="margin: 10px 0;"></div>
 
-  <!-- HP表示 -->
+  <!-- ★カードを常時表示（ここがポイント！） -->
+  <div id="specialInfo" style="margin:10px 0;"></div>
+
+  <!-- 体力表示 -->
   <div id="hpDisplay" style="margin:10px 0;"></div>
 
   <!-- 行動ボタン -->
@@ -27,11 +30,12 @@
     <button onclick="chooseAction('投げ')">投げ</button>
   </div>
 
-  <!-- スペシャルカード使用ボタン -->
+  <!-- ★カード使用ボタン -->
   <button id="specialBtn" onclick="useSpecial()" style="display:none;">
     ★カードを使う
   </button>
 
+  <!-- ゲームロジック -->
   <script src="main.js"></script>
 </body>
 </html>
