@@ -8,6 +8,31 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <body>
+  <h1>MIZOGU FIGHT K - Rev.A</h1>
+  <p>iPhone対応PWA体験版</p>
+
+  <div id="specialInfo" class="badge">★カード：未使用</div>
+  <div id="hpBar">
+    <div>あなた：<span id="myHearts"></span></div>
+    <div>相　手：<span id="oppHearts"></span></div>
+  </div>
+
+  <button onclick="startGame()">ゲーム開始</button>
+  <div id="log" class="logbox"></div>
+
+  <div id="actionArea" style="display:none;">
+    <button class="card-btn" onclick="chooseAction('攻撃')">👊 攻撃</button>
+    <button class="card-btn" onclick="chooseAction('防御')">🛡 防御</button>
+    <button class="card-btn" onclick="chooseAction('投げ')">🤼 投げ</button>
+  </div>
+
+  <button id="specialBtn" onclick="useSpecial()" style="display:none;">
+    ★カードを使う
+  </button>
+
+  <script src="main.js"></script>
+</body>
   <h1>MIZOGU FIGHT K - Rev.A</h1>
   <p>iPhone対応PWA体験版</p>
 
