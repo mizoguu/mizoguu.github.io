@@ -1,2 +1,2 @@
-# mizogu.github.io
+# mizoguu.github.io
 MIZOGU FIGHT （normal version）
