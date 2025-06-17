@@ -1,80 +1,36 @@
-let myHP = 4;
-let oppHP = 4;
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIZOGU FIGHT K</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <h1>MIZOGU FIGHT K - Rev.A</h1>
+  <p>iPhone対応PWA体験版</p>
 
-let mySpecial = null;
-let specialUsed = false;
+  <button onclick="startGame()">ゲーム開始</button>
 
-function startGame() {
-  const specials = ['フェイント', 'カウンター', 'スマッシュ'];
-  mySpecial = specials[Math.floor(Math.random() * specials.length)];
-  specialUsed = false;
-  myHP = 4;
-  oppHP = 4;
+  <!-- ログ表示 -->
+  <div id="log"></div>
 
-  document.getElementById("log").innerText =
-    `あなたのスペシャルカード: ${mySpecial}（1回のみ）`;
+  <!-- HP表示 -->
+  <div id="hpDisplay" style="margin:10px 0;"></div>
 
-  document.getElementById("actionArea").style.display = "block";
-  document.getElementById("specialBtn").style.display = "inline-block";
+  <!-- 行動ボタン -->
+  <div id="actionArea" style="display:none;">
+    <button onclick="chooseAction('攻撃')">攻撃</button>
+    <button onclick="chooseAction('防御')">防御</button>
+    <button onclick="chooseAction('投げ')">投げ</button>
+  </div>
 
-  renderHP();
-}
+  <!-- スペシャルカード使用ボタン -->
+  <button id="specialBtn" onclick="useSpecial()" style="display:none;">
+    ★カードを使う
+  </button>
 
-function renderHP() {
-  document.getElementById("hpDisplay").innerText =
-    `あなた: ${myHP} / 相手: ${oppHP}`;
-}
-
-function chooseAction(playerMove) {
-  const moves = ['攻撃', '防御', '投げ'];
-  const enemyMove = moves[Math.floor(Math.random() * moves.length)];
-
-  let outcome = '';
-  if (playerMove === enemyMove) {
-    outcome = 'あいこ！';
-    // HP変動なし
-  } else if (
-    (playerMove === '攻撃' && enemyMove === '投げ') ||
-    (playerMove === '防御' && enemyMove === '攻撃') ||
-    (playerMove === '投げ' && enemyMove === '防御')
-  ) {
-    outcome = 'あなたの勝ち！';
-    oppHP--;
-  } else {
-    outcome = 'あなたの負け！';
-    myHP--;
-  }
-
-  renderHP();
-
-  // 勝敗判定
-  if (myHP <= 0) {
-    document.getElementById("log").innerText = "あなたの負け！ゲーム終了！";
-    disableButtons();
-    return;
-  } else if (oppHP <= 0) {
-    document.getElementById("log").innerText = "あなたの勝ち！ゲーム終了！";
-    disableButtons();
-    return;
-  }
-
-  // 表示更新
-  document.getElementById("log").innerText =
-    `あなた: ${playerMove} ／ 相手: ${enemyMove} → ${outcome}`;
-}
-
-function useSpecial() {
-  if (specialUsed) {
-    alert("もう使えません！");
-    return;
-  }
-
-  specialUsed = true;
-  document.getElementById("specialBtn").style.display = "none";
-  document.getElementById("log").innerText += `\n★カード「${mySpecial}」を使用！（効果は未実装）`;
-}
-
-function disableButtons() {
-  document.getElementById("actionArea").style.display = "none";
-  document.getElementById("specialBtn").style.display = "none";
-}
+  <script src="main.js"></script>
+</body>
+</html>
