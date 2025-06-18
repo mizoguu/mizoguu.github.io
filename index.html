@@ -2,11 +2,12 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>MIZOGU FIGHT</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- ホーム画面 -->
   <div id="home">
     <h1>MIZOGU FIGHT</h1>
     <button onclick="showRules()">📘 ルールブック</button>
@@ -15,8 +16,10 @@
     <button onclick="startPvP()">対人対戦</button>
   </div>
 
+  <!-- 動的に内容を差し替える領域 -->
   <div id="content" style="display:none;"></div>
 
+  <!-- ロジック -->
   <script src="main.js"></script>
 </body>
 </html>
