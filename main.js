@@ -1,48 +1,46 @@
-// ----- ルールブックとカード一覧表示 -----
+// ▼ ルール説明
 function openRule() {
-  document.getElementById('modeSelect').style.display = 'none';
-  document.getElementById('infoArea').style.display = 'block';
-  document.getElementById('content').innerHTML = `
-    <h2>📘 ルールブック（Rev.A）</h2>
-    <p><b>基本ルール：</b> 攻撃・防御・投げの3すくみ＋1枚のスペシャルカードで相手のHPを0にしたら勝利！</p>
-    <p><b>勝利条件：</b> ノーマルモード：4点／ハードモード：5点（スキルあり）</p>
-    <p><b>ターンの流れ：</b><br>
-    ① 行動カードを伏せる → ② 必要ならスペシャル宣言 → ③ 同時公開→勝敗・HP変動</p>`;
+  document.body.innerHTML = `
+    <h1>MIZOGU FIGHT</h1>
+    <div class="log-box">
+      <h2>📘 ルールブック（Rev.A）</h2>
+      <p><b>基本ルール：</b> 攻撃・防御・投げの3すくみ＋1枚のスペシャルカードで相手のHPを0にしたら勝利！</p>
+      <p><b>勝利条件：</b> ノーマルモード：4点／ハードモード：5点（スキルあり）</p>
+      <p><b>ターンの流れ：</b><br>
+      ① 行動カードを伏せる → ② 必要ならスペシャル宣言 → ③ 同時公開→勝敗・HP変動</p>
+      <button onclick="location.reload()">← 戻る</button>
+    </div>`;
 }
-
 function openCardList() {
-  document.getElementById('modeSelect').style.display = 'none';
-  document.getElementById('infoArea').style.display = 'block';
-  document.getElementById('content').innerHTML = `
-    <h2>🃏 カード一覧説明</h2>
-    <h3>▶ 行動カード</h3>
-    👊攻撃：投げ・フェイントに勝ち／防御・カウンターに負け<br>
-    🛡防御：攻撃・スマッシュに勝ち／投げ・フェイントに負け<br>
-    🤼‍♂️投げ：防御・カウンターに勝ち／攻撃・スマッシュに負け
-    <h3>▶ スペシャルカード</h3>
-    ★フェイント：防御・カウンターに勝ち<br>
-    ★スマッシュ：投げ・フェイントに勝ち<br>
-    ★カウンター：攻撃・スマッシュに勝ち<br>
-    <p><b>※ 使用は1回のみ。勝てば大きなダメージ！</b></p>`;
+  document.body.innerHTML = `
+    <h1>MIZOGU FIGHT</h1>
+    <div class="log-box">
+      <h2>🃏 カード一覧説明</h2>
+      <h3>▶ 行動カード</h3>
+      👊攻撃：投げ・フェイントに勝ち／防御・カウンターに負け<br>
+      🛡防御：攻撃・スマッシュに勝ち／投げ・フェイントに負け<br>
+      🤼‍♂️投げ：防御・カウンターに勝ち／攻撃・スマッシュに負け
+      <h3>▶ スペシャルカード</h3>
+      ★フェイント：防御・カウンターに勝ち<br>
+      ★スマッシュ：投げ・フェイントに勝ち<br>
+      ★カウンター：攻撃・スマッシュに勝ち
+      <p><b>※ 使用は1回のみ。勝てば大きなダメージ！</b></p>
+      <button onclick="location.reload()">← 戻る</button>
+    </div>`;
 }
 
-function closeInfo() {
-  document.getElementById('infoArea').style.display = 'none';
-  document.getElementById('modeSelect').style.display = 'block';
+// ▼ モード選択（CPU or 対人）
+function selectMode(mode) {
+  document.getElementById('modeSelect').style.display = "none";
+  document.getElementById('gameArea').style.display = "block";
+  initGame(mode);
 }
 
-// ----- 対戦モード選択と初期化 -----
+// ▼ ゲーム初期化
 let myHP = 4;
 let oppHP = 4;
 let mySpecial = null;
 let specialUsed = false;
-
-function selectMode(mode) {
-  document.getElementById('modeSelect').style.display = 'none';
-  document.getElementById('gameArea').style.display = 'block';
-
-  initGame(mode);
-}
 
 function initGame(mode) {
   const specials = ['フェイント', 'カウンター', 'スマッシュ'];
@@ -50,12 +48,12 @@ function initGame(mode) {
   specialUsed = false;
   myHP = 4;
   oppHP = 4;
-
   document.getElementById("specialInfo").innerText = `スペシャルカード：${mySpecial}（1回）`;
   document.getElementById("log").innerText = "ゲーム開始！";
   renderHP();
 }
 
+// ▼ ゲーム開始
 function startGame() {
   document.getElementById("log").innerText = "行動を選んでください。";
   document.getElementById("specialBtn").style.display = "inline-block";
@@ -63,7 +61,7 @@ function startGame() {
   renderHP();
 }
 
-// ----- 行動選択と処理 -----
+// ▼ 行動を選ぶ
 function chooseAction(playerMove) {
   const moves = ['攻撃', '防御', '投げ'];
   const enemyMove = moves[Math.floor(Math.random() * moves.length)];
@@ -71,7 +69,6 @@ function chooseAction(playerMove) {
   let result = '';
   let damageToEnemy = 0;
   let damageToPlayer = 0;
-
   const special = specialUsed ? mySpecial : null;
 
   if (special) {
@@ -104,7 +101,6 @@ function chooseAction(playerMove) {
 
   myHP -= damageToPlayer;
   oppHP -= damageToEnemy;
-
   renderHP();
 
   if (myHP <= 0) {
@@ -122,6 +118,7 @@ function chooseAction(playerMove) {
     `あなた: ${playerMove} ／ 相手: ${enemyMove}\n${result}`;
 }
 
+// ▼ スペシャル使用
 function useSpecial() {
   if (specialUsed) {
     alert("もう使えません！");
@@ -133,19 +130,18 @@ function useSpecial() {
     `スペシャルカード：${mySpecial}（使用済）`;
 }
 
+// ▼ 表示更新
 function renderHP() {
   const myHearts = '❤️'.repeat(myHP);
   const oppHearts = '❤️'.repeat(oppHP);
-  document.getElementById("hpArea").innerText =
-    `あなた：${myHearts} ／ 相手：${oppHearts}`;
+  document.getElementById("hpArea").innerText = `あなた：${myHearts} ／ 相手：${oppHearts}`;
 }
-
 function disableAll() {
   document.getElementById("actionArea").style.display = "none";
   document.getElementById("specialBtn").style.display = "none";
 }
 
-// スペシャル勝敗判定
+// ▼ 勝敗判定（スペシャル）
 function isWinSpecial(special, move) {
   const winMap = {
     フェイント: ['防御', 'カウンター'],
@@ -154,7 +150,6 @@ function isWinSpecial(special, move) {
   };
   return winMap[special].includes(move);
 }
-
 function isLoseSpecial(special, move) {
   const loseMap = {
     フェイント: ['攻撃', 'スマッシュ'],
@@ -163,7 +158,18 @@ function isLoseSpecial(special, move) {
   };
   return loseMap[special].includes(move);
 }
-
 function isSpecialDraw(special, move) {
   return move === special;
+}
+
+// ▼ ホームに戻る
+function goHome() {
+  if (confirm("タイトルへ戻りますか？\n※ 進行中のゲームはリセットされます")) {
+    document.getElementById('gameArea').style.display = 'none';
+    document.getElementById('modeSelect').style.display = 'block';
+    specialUsed = false;
+    document.getElementById("specialBtn").style.display = "none";
+    document.getElementById("actionArea").style.display = "none";
+    document.getElementById("log").innerText = "";
+  }
 }
