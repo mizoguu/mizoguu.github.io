@@ -2,27 +2,53 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MIZOGU FIGHT</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <h1>MIZOGU FIGHT</h1>
-
-  <div id="modeSelect">
-    <a href="#" class="rule-button" onclick="openRule()">📘 ルールブック</a><br>
-    <a href="#" class="rule-button" onclick="openCardList()">🃏 カード一覧説明</a><br>
-    <button class="start-btn" onclick="selectMode('cpu')">CPU対戦</button>
-    <button class="start-btn" onclick="selectMode('vs')">対人対戦</button>
+  <div id="homeScreen" class="screen">
+    <h1>MIZOGU FIGHT</h1>
+    <button onclick="openRule()">📘 ルールブック</button>
+    <button onclick="openCardList()">🃏 カード一覧説明</button>
+    <button onclick="selectMode('cpu')">CPU対戦</button>
+    <button onclick="selectMode('vs')">対人対戦</button>
   </div>
 
-  <div id="gameArea" style="display:none;">
-    <div class="special-info" id="specialInfo">スペシャルカード：未使用</div>
-    <div class="hp-area" id="hpArea">あなた：❤️❤️❤️❤️ ／ 相手：❤️❤️❤️❤️</div>
-    <div class="log-box" id="log"></div>
+  <div id="ruleScreen" class="screen hidden">
+    <h2>📘 ルールブック（Rev.A）</h2>
+    <p><strong>基本ルール：</strong> 攻撃・防御・投げの3すくみ＋1枚のスペシャルカードで相手のHPを0にしたら勝利！</p>
+    <p><strong>勝利条件：</strong> ノーマル：4点／ハード：5点（スキル有）</p>
+    <p><strong>ターンの流れ：</strong></p>
+    <ol>
+      <li>行動カードを伏せる</li>
+      <li>必要ならスペシャル宣言</li>
+      <li>同時公開→勝敗判定＆HP変動</li>
+    </ol>
+    <button onclick="goHome()">← ホームに戻る</button>
+  </div>
 
-    <button id="specialBtn" class="special-btn" onclick="useSpecial()">★カードを使う</button>
+  <div id="cardScreen" class="screen hidden">
+    <h2>🃏 カード一覧説明</h2>
+    <h3>▶ 行動カード</h3>
+    👊攻撃：投げ・フェイントに勝ち／防御・カウンターに負け<br>
+    🛡防御：攻撃・スマッシュに勝ち／投げ・フェイントに負け<br>
+    🤼‍♂️投げ：防御・カウンターに勝ち／攻撃・スマッシュに負け
+    <h3>▶ スペシャルカード</h3>
+    ★フェイント：防御・カウンターに勝ち<br>
+    ★スマッシュ：投げ・フェイントに勝ち<br>
+    ★カウンター：攻撃・スマッシュに勝ち
+    <p><strong>※ 使用は1回のみ。勝てば大ダメージ！</strong></p>
+    <button onclick="goHome()">← ホームに戻る</button>
+  </div>
+
+  <div id="gameScreen" class="screen hidden">
+    <div class="header">
+      <div id="specialInfo">スペシャルカード：未使用</div>
+      <div id="hpArea">あなた：❤️❤️❤️❤️ ／ 相手：❤️❤️❤️❤️</div>
+    </div>
+    <div class="log-box" id="log">ゲームログ表示エリア</div>
 
     <div class="action-buttons" id="actionArea">
       <button onclick="chooseAction('攻撃')">👊 攻撃</button>
@@ -30,8 +56,9 @@
       <button onclick="chooseAction('投げ')">🤼‍♂️ 投げ</button>
     </div>
 
-    <button id="confirmBtn" class="start-btn" style="display:none;" onclick="confirmTurn()">確認</button>
-    <button class="start-btn" onclick="returnHome()">ホームへ戻る</button>
+    <button id="specialBtn" onclick="useSpecial()">★カードを使う</button>
+    <button id="confirmBtn" class="hidden" onclick="confirmPvP()">✅ 確認</button>
+    <button onclick="goHome()">🏠 ホームに戻る</button>
   </div>
 
   <script src="main.js"></script>
