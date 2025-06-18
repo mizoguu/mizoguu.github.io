@@ -1,17 +1,31 @@
 body {
   font-family: sans-serif;
   text-align: center;
-  background-color: #f0f0f0;
-  margin: 0;
+  background: #111;
+  color: #fff;
   padding: 2em;
+}
+
+button {
+  display: block;
+  margin: 1em auto;
+  padding: 1em 2em;
+  font-size: 1.2em;
+  background: #333;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 10px;
+}
+
+button:hover {
+  background: #555;
+  cursor: pointer;
 }
 
 .screen {
   display: none;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  font-size: 16px;
+.screen h2 {
+  margin-bottom: 1em;
 }
