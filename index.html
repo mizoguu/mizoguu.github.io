@@ -7,17 +7,37 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="home">
+  <div id="homeScreen" class="screen">
     <h1>MIZOGU FIGHT</h1>
-    <button onclick="showRule()">📘 ルールブック</button>
-    <button onclick="showCardList()">🃏 カード一覧説明</button><br><br>
-    <button onclick="startMode('cpu')">CPU対戦</button>
-    <button onclick="startMode('vs')">対人対戦</button>
+    <button onclick="showRules()">📘 ルールブック</button>
+    <button onclick="showCardList()">🃏 カード一覧説明</button>
+    <button onclick="startCPU()">CPU対戦</button>
+    <button onclick="startPvP()">対人対戦</button>
   </div>
 
-  <div id="rule" class="hidden"></div>
-  <div id="cardlist" class="hidden"></div>
-  <div id="game" class="hidden"></div>
+  <div id="ruleScreen" class="screen" style="display:none;"></div>
+  <div id="cardScreen" class="screen" style="display:none;"></div>
+  <div id="gameScreen" class="screen" style="display:none;">
+    <div id="modeInfo"></div>
+    <div id="hpDisplay"></div>
+    <div id="specialDisplay"></div>
+    <div id="logBox"></div>
+
+    <div id="playerInputArea">
+      <h3>あなたの行動：</h3>
+      <button onclick="chooseAction('攻撃')">👊 攻撃</button>
+      <button onclick="chooseAction('防御')">🛡 防御</button>
+      <button onclick="chooseAction('投げ')">🤼‍♂️ 投げ</button>
+      <button onclick="useSpecial()">★ スペシャルカード</button>
+    </div>
+
+    <div id="confirmArea" style="display:none;">
+      <p>カードを伏せました。相手の選択を待っています…</p>
+      <button onclick="confirmAction()">確認</button>
+    </div>
+
+    <button onclick="goHome()">🏠 ホームへ戻る</button>
+  </div>
 
   <script src="main.js"></script>
 </body>
