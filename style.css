@@ -1,39 +1,17 @@
 body {
   font-family: sans-serif;
-  background: #111;
-  color: #fff;
   text-align: center;
-  padding: 20px;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 2em;
 }
-h1 {
-  font-size: 28px;
-  color: gold;
-  margin-bottom: 20px;
-}
-button {
-  padding: 10px 20px;
-  margin: 8px;
-  border: none;
-  border-radius: 6px;
-  background: #0077cc;
-  color: white;
-  font-size: 16px;
-}
-button:hover {
-  background: #3399ff;
-}
-.hidden {
+
+.screen {
   display: none;
 }
-.box {
-  background: #222;
-  border: 1px dashed #888;
-  padding: 16px;
-  margin: 16px auto;
-  max-width: 400px;
-  white-space: pre-wrap;
-}
-.return-btn {
-  margin-top: 16px;
-  background: #444;
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
 }
