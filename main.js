@@ -1,39 +1,38 @@
-window.onload = function () {
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(el => el.style.display = 'none');
-    document.getElementById(id).style.display = 'block';
-  }
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(el => el.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
 
-  function showRules() {
-    const html = `
-      <h2>📘 ルールブック</h2>
-      <p><b>基本ルール：</b>攻撃・防御・投げの三すくみとスペシャルカード1枚で戦います。</p>
-      <p><b>勝利条件：</b> 相手のHPを0にしたら勝ち（ノーマル4点／ハード5点）</p>
-      <p><b>ターンの流れ：</b><br>
-        ① 行動カードを伏せる<br>
-        ② 必要ならスペシャルカードを宣言<br>
-        ③ 同時公開 → 勝敗 → HP変動
-      </p>
-      <h3>📊 ダメージ計算</h3>
-      <ul>
-        <li>通常勝利：相手 -1</li>
-        <li>スペシャル勝利（vsノーマル）：相手 -2</li>
-        <li>スペシャル勝利（vsスペシャル）：相手 -1、自分 +1</li>
-        <li>スペシャル同士のあいこ：両者 -1</li>
-        <li>スペシャル負け（vsノーマル）：自分 -1</li>
-      </ul>
-      <button onclick="goHome()">← ホームに戻る</button>
-    `;
-    document.getElementById('ruleScreen').innerHTML = html;
-    showScreen('ruleScreen');
-  }
+function showRules() {
+  const html = `
+    <h2>📘 ルールブック</h2>
+    <p><b>基本ルール：</b>攻撃・防御・投げ＋1枚のスペシャルカードでHPを削る。</p>
+    <p><b>勝利条件：</b> 先に相手のHPを0にした方が勝ち。</p>
+    <p><b>ターンの流れ：</b><br>① カードを伏せる → ② 同時公開 → ③ 勝敗判定</p>
+    <button onclick="goHome()">← ホームへ</button>
+  `;
+  document.getElementById('infoScreen').innerHTML = html;
+  showScreen('infoScreen');
+}
 
-  function showCardList() {
-    const html = `
-      <h2>🃏 カード一覧</h2>
-      <h3>▶ 行動カード</h3>
-      👊攻撃：投げ・フェイントに勝ち／防御・カウンターに負け<br>
-      🛡防御：攻撃・スマッシュに勝ち／投げ・フェイントに負け<br>
-      🤼投げ：防御・カウンターに勝ち／攻撃・スマッシュに負け
-      <h3>▶ スペシャルカード</h3>
-      ★フェイント：防御・カウンターに勝ち<br>
+function showCardList() {
+  const html = `
+    <h2>🃏 カード一覧</h2>
+    <p><b>攻撃：</b>投げに勝ち、防御に負け</p>
+    <p><b>防御：</b>攻撃に勝ち、投げに負け</p>
+    <p><b>投げ：</b>防御に勝ち、攻撃に負け</p>
+    <p><b>スペシャル：</b>フェイント・カウンター・スマッシュ（1回だけ使用可）</p>
+    <button onclick="goHome()">← ホームへ</button>
+  `;
+  document.getElementById('infoScreen').innerHTML = html;
+  showScreen('infoScreen');
+}
+
+function startGame(mode) {
+  document.getElementById('modeTitle').innerText = (mode === 'cpu') ? "CPU対戦モード" : "対人対戦モード";
+  showScreen('gameScreen');
+}
+
+function goHome() {
+  showScreen('homeScreen');
+}
