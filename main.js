@@ -24,24 +24,5 @@ function startCPU() {
   const content = document.getElementById("content");
   content.style.display = "block";
   content.innerHTML = `
-    <h2>CPU対戦（準備中）</h2>
-    <p>※ここにCPUロジックを追加予定です。</p>
-    <button onclick="goHome()">← ホームに戻る</button>
-  `;
-}
-
-function startPvP() {
-  const content = document.getElementById("content");
-  content.style.display = "block";
-  content.innerHTML = `
-    <h2>対人対戦（準備中）</h2>
-    <p>※ここに対人モードを追加予定です。</p>
-    <button onclick="goHome()">← ホームに戻る</button>
-  `;
-}
-
-function goHome() {
-  const content = document.getElementById("content");
-  content.style.display = "none";
-  content.innerHTML = "";
-}
+    <h2>CPU対戦モード（準備中）</h2>
+    <p>ここにCPUロジックを追加予定です。</p>
