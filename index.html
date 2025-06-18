@@ -7,24 +7,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- ホーム画面 -->
   <div id="homeScreen" class="screen">
     <h1>MIZOGU FIGHT</h1>
     <button onclick="showRules()">📘 ルールブック</button>
     <button onclick="showCardList()">🃏 カード一覧</button>
-    <button onclick="startCPU()">CPU対戦</button>
-    <button onclick="startPvP()">対人対戦</button>
+    <button onclick="startGame('cpu')">CPU対戦</button>
+    <button onclick="startGame('vs')">対人対戦</button>
   </div>
 
-  <!-- ルール画面 -->
-  <div id="ruleScreen" class="screen" style="display:none;"></div>
+  <div id="infoScreen" class="screen" style="display:none;"></div>
 
-  <!-- カード説明画面 -->
-  <div id="cardScreen" class="screen" style="display:none;"></div>
-
-  <!-- ゲーム画面 -->
-  <div id="gameScreen" class="screen" style="display:none;"></div>
+  <div id="gameScreen" class="screen" style="display:none;">
+    <h2 id="modeTitle"></h2>
+    <p>ゲーム中！（仮実装）</p>
+    <button onclick="goHome()">← ホームに戻る</button>
+  </div>
 
   <script src="main.js"></script>
 </body>
