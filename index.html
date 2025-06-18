@@ -7,11 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="app">
+  <div id="home">
     <h1>MIZOGU FIGHT</h1>
-    <button onclick="startGame()">ゲーム開始</button>
-    <div id="log"></div>
+    <button onclick="showRules()">📘 ルールブック</button>
+    <button onclick="showCardList()">🃏 カード一覧説明</button>
+    <button onclick="startCPU()">CPU対戦</button>
+    <button onclick="startPvP()">対人対戦</button>
   </div>
+
+  <div id="content" style="display:none;"></div>
+
   <script src="main.js"></script>
 </body>
 </html>
