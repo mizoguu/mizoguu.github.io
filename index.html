@@ -7,36 +7,27 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- ホーム画面 -->
   <div id="homeScreen" class="screen">
     <h1>MIZOGU FIGHT</h1>
     <button onclick="showRules()">📘 ルールブック</button>
-    <button onclick="showCardList()">🃏 カード一覧説明</button>
+    <button onclick="showCardList()">🃏 カード一覧</button>
     <button onclick="startCPU()">CPU対戦</button>
     <button onclick="startPvP()">対人対戦</button>
   </div>
 
+  <!-- ルール画面 -->
   <div id="ruleScreen" class="screen" style="display:none;"></div>
+
+  <!-- カード説明画面 -->
   <div id="cardScreen" class="screen" style="display:none;"></div>
+
+  <!-- ゲーム画面 -->
   <div id="gameScreen" class="screen" style="display:none;">
-    <div id="modeInfo"></div>
-    <div id="hpDisplay"></div>
-    <div id="specialDisplay"></div>
-    <div id="logBox"></div>
-
-    <div id="playerInputArea">
-      <h3>あなたの行動：</h3>
-      <button onclick="chooseAction('攻撃')">👊 攻撃</button>
-      <button onclick="chooseAction('防御')">🛡 防御</button>
-      <button onclick="chooseAction('投げ')">🤼‍♂️ 投げ</button>
-      <button onclick="useSpecial()">★ スペシャルカード</button>
-    </div>
-
-    <div id="confirmArea" style="display:none;">
-      <p>カードを伏せました。相手の選択を待っています…</p>
-      <button onclick="confirmAction()">確認</button>
-    </div>
-
-    <button onclick="goHome()">🏠 ホームへ戻る</button>
+    <h2 id="modeInfo"></h2>
+    <p>※ここにゲームロジックを追加予定</p>
+    <button onclick="goHome()">← ホームに戻る</button>
   </div>
 
   <script src="main.js"></script>
