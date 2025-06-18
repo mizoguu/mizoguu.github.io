@@ -7,54 +7,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- ホーム画面 -->
   <div id="home">
     <h1>MIZOGU FIGHT</h1>
-    <button onclick="showPage('rule')">📘 ルールブック</button><br>
-    <button onclick="showPage('card')">🃏 カード一覧説明</button><br>
-    <button onclick="startGame('cpu')">CPU対戦</button>
-    <button onclick="startGame('vs')">対人対戦</button>
+    <button onclick="openRule()">📘 ルールブック</button>
+    <button onclick="openCardList()">🃏 カード一覧説明</button><br><br>
+    <button onclick="selectMode('cpu')">CPU対戦</button>
+    <button onclick="selectMode('vs')">対人対戦</button>
   </div>
 
-  <!-- ルールブック -->
-  <div id="rule" class="page" style="display:none;">
-    <h2>📘 ルールブック（Rev.A）</h2>
-    <p><b>基本ルール：</b> 攻撃・防御・投げの3すくみ＋1枚のスペシャルカードで相手のHPを0にしたら勝利！</p>
-    <p><b>勝利条件：</b> ノーマル：4点／ハード：5点（スキル有）</p>
-    <p><b>ターンの流れ：</b><br>① 行動カードを伏せる → ② 必要ならスペシャル宣言 → ③ 同時公開→勝敗＆HP変動</p>
-    <button onclick="showPage('home')">← ホームに戻る</button>
-  </div>
-
-  <!-- カード説明 -->
-  <div id="card" class="page" style="display:none;">
-    <h2>🃏 カード一覧説明</h2>
-    <h3>▶ 行動カード</h3>
-    👊攻撃：投げ・フェイントに勝ち／防御・カウンターに負け<br>
-    🛡防御：攻撃・スマッシュに勝ち／投げ・フェイントに負け<br>
-    🤼‍♂️投げ：防御・カウンターに勝ち／攻撃・スマッシュに負け<br><br>
-    <h3>▶ スペシャルカード</h3>
-    ★フェイント：防御・カウンターに勝ち<br>
-    ★スマッシュ：投げ・フェイントに勝ち<br>
-    ★カウンター：攻撃・スマッシュに勝ち<br>
-    ※使用は1回のみ、勝てば大ダメージ！<br>
-    <button onclick="showPage('home')">← ホームに戻る</button>
-  </div>
-
-  <!-- ゲーム画面 -->
-  <div id="game" class="page" style="display:none;">
-    <h2 id="modeTitle">対戦モード</h2>
-    <div id="specialInfo"></div>
-    <div id="hpArea">あなた：❤️❤️❤️❤️／相手：❤️❤️❤️❤️</div>
-    <div id="log" class="log-box"></div>
-    <button id="specialBtn" onclick="useSpecial()">★カードを使う</button>
-    <div id="actionArea">
-      <button onclick="chooseAction('攻撃')">👊 攻撃</button>
-      <button onclick="chooseAction('防御')">🛡 防御</button>
-      <button onclick="chooseAction('投げ')">🤼‍♂️ 投げ</button>
-    </div>
-    <button onclick="showPage('home')">← ホームに戻る</button>
-  </div>
+  <div id="rule" style="display:none;"></div>
+  <div id="cardList" style="display:none;"></div>
 
   <script src="main.js"></script>
 </body>
