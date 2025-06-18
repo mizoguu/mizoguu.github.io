@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MIZOGU FIGHT</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <h1>MIZOGU FIGHT</h1>
@@ -15,6 +15,11 @@
     <a href="#" class="rule-button" onclick="openCardList()">🃏 カード一覧説明</a><br>
     <button class="start-btn" onclick="selectMode('cpu')">CPU対戦</button>
     <button class="start-btn" onclick="selectMode('vs')">対人対戦</button>
+  </div>
+
+  <div id="infoArea" style="display:none;">
+    <div class="log-box" id="content"></div>
+    <button onclick="closeInfo()">← 戻る</button>
   </div>
 
   <div id="gameArea" style="display:none;">
@@ -29,6 +34,7 @@
       <button onclick="chooseAction('防御')">🛡 防御</button>
       <button onclick="chooseAction('投げ')">🤼‍♂️ 投げ</button>
     </div>
+
     <button class="start-btn" onclick="startGame()">ゲーム開始</button>
   </div>
 
