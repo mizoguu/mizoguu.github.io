@@ -1,73 +1,31 @@
-/* ベース設定 */
 body {
   font-family: sans-serif;
   background-color: #111;
   color: #fff;
   text-align: center;
   padding: 20px;
-  margin: 0;
 }
 
 h1 {
   font-size: 28px;
-  color: gold;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 h2 {
-  font-size: 20px;
-  margin-top: 16px;
+  font-size: 22px;
+  margin: 16px 0;
 }
 
 button {
-  margin: 8px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: none;
-  background-color: #444;
+  background-color: #1976d2;
   color: white;
-  box-shadow: 2px 2px #000;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
 button:hover {
-  background-color: #666;
-  cursor: pointer;
-}
-
-/* ゲーム用パーツ */
-#specialInfo {
-  background-color: gold;
-  color: black;
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 6px;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-#hpArea {
-  font-size: 20px;
-  margin: 12px 0;
-  line-height: 1.5;
-}
-
-.log-box {
-  background: #222;
-  border: 1px dashed #888;
-  padding: 10px;
-  margin: 12px auto;
-  width: 90%;
-  max-width: 320px;
-  min-height: 40px;
-  white-space: pre-wrap;
-}
-
-/* ページごとに切り替え */
-.page {
-  display: none;
-}
-
-#home {
-  display: block;
+  background-color: #2196f3;
 }
