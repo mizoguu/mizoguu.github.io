@@ -1,70 +1,33 @@
-let myHP = 4;
-let oppHP = 4;
-let mySpecial = '';
-let specialUsed = false;
-
-function startGame() {
-  const specials = ['フェイント', 'カウンター', 'スマッシュ'];
-  mySpecial = specials[Math.floor(Math.random() * specials.length)];
-  specialUsed = false;
-  myHP = 4;
-  oppHP = 4;
-  updateSpecialInfo();
-  renderHP();
-  setLog('');
-  document.getElementById("actionArea").style.display = "block";
-  document.getElementById("specialBtn").style.display = "inline-block";
+/* ---------- ルールブック & カード説明 ---------- */
+function showRules() {
+  document.getElementById('content').innerHTML = `
+    <h2>📘 ルールブック（Rev.A）</h2>
+    <h3>基本ルール</h3>
+    <p>3つの行動カードと1枚のスペシャルカードを使い、
+       相手のHPを0にした方が勝ちです。</p>
+    <h3>ターンの流れ</h3>
+    <ol><li>行動カードを伏せる</li>
+        <li>必要ならスペシャル宣言</li>
+        <li>同時公開→勝敗判定＆HP変動</li></ol>`;
 }
 
-function updateSpecialInfo() {
-  const info = specialUsed ? '使用済み' : ` ${mySpecial}（1回）`;
-  document.getElementById("specialInfo").innerText = `スペシャルカード：${info}`;
+function showCards() {
+  document.getElementById('content').innerHTML = `
+    <h2>🃏 カード一覧</h2>
+    <h3>行動カード</h3>
+    攻撃▶投げ　防御▶攻撃　投げ▶防御<br><br>
+    <h3>スペシャルカード</h3>
+    フェイント▶防御/カウンター<br>
+    スマッシュ▶投げ/フェイント<br>
+    カウンター▶攻撃/スマッシュ`;
 }
 
-function renderHP() {
-  const hearts = (n) => '❤️'.repeat(n);
-  document.getElementById("hpArea").innerText = `あなた：${hearts(myHP)}／ 相手：${hearts(oppHP)}`;
+/* ---------- ゲーム起動プレースホルダ ---------- */
+function startCPU() {
+  document.getElementById('content').innerHTML =
+    '<h2>CPU対戦モード</h2><p>（現在実装中です）</p>';
 }
-
-function setLog(text) {
-  document.getElementById("log").innerText = text;
-}
-
-function useSpecial() {
-  if (specialUsed) return;
-  specialUsed = true;
-  updateSpecialInfo();
-  setLog("★カード「" + mySpecial + "」を使用！（効果は未実装）");
-}
-
-function chooseAction(playerMove) {
-  const moves = ['攻撃', '防御', '投げ'];
-  const enemyMove = moves[Math.floor(Math.random() * moves.length)];
-  let outcome = '';
-
-  if (playerMove === enemyMove) {
-    outcome = 'あいこ！';
-  } else if (
-    (playerMove === '攻撃' && enemyMove === '投げ') ||
-    (playerMove === '防御' && enemyMove === '攻撃') ||
-    (playerMove === '投げ' && enemyMove === '防御')
-  ) {
-    outcome = 'あなたの勝ち！';
-    oppHP--;
-  } else {
-    outcome = 'あなたの負け！';
-    myHP--;
-  }
-
-  renderHP();
-
-  if (myHP <= 0 || oppHP <= 0) {
-    const result = myHP <= 0 ? "あなたの負け！ゲーム終了！" : "あなたの勝ち！ゲーム終了！";
-    setLog(result);
-    document.getElementById("actionArea").style.display = "none";
-    document.getElementById("specialBtn").style.display = "none";
-    return;
-  }
-
-  setLog(`あなた: ${playerMove} ／ 相手: ${enemyMove} → ${outcome}`);
+function startPvP() {
+  document.getElementById('content').innerHTML =
+    '<h2>対人戦モード</h2><p>（現在実装中です）</p>';
 }
