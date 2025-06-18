@@ -1,142 +1,194 @@
-let players = [
-  { hp: 4, move: null, special: null, used: false },
-  { hp: 4, move: null, special: null, used: false }
-];
-let turn = 0; // 0: A, 1: B
-let phase = "A選択"; // A入力 → B入力 → 結果
+let gameMode = ''; // 'cpu' or 'pvp'
+let turn = 'A'; // P1→P2→表示へ
+let myHP = 5, oppHP = 5;
+let specialA = '', specialB = '';
+let specialUsedA = false, specialUsedB = false;
+let moveA = null, moveB = null;
+let usedSpecialA = false, usedSpecialB = false;
+
+const moves = ['攻撃', '防御', '投げ'];
+const specials = ['フェイント', 'カウンター', 'スマッシュ'];
+
+function selectMode(mode) {
+  gameMode = mode;
+  document.getElementById("modeSelection").style.display = "none";
+  document.getElementById("gameArea").style.display = "block";
+}
 
 function startGame() {
-  // ランダムにスペシャルカード配布
-  const specials = ['フェイント', 'カウンター', 'スマッシュ'];
-  players[0].special = specials[Math.floor(Math.random() * specials.length)];
-  players[1].special = specials[Math.floor(Math.random() * specials.length)];
-  players[0].hp = players[1].hp = 4;
-  players[0].used = players[1].used = false;
+  myHP = 5;
+  oppHP = 5;
+  moveA = null;
+  moveB = null;
+  specialA = specials[Math.floor(Math.random() * 3)];
+  specialB = specials[Math.floor(Math.random() * 3)];
+  specialUsedA = false;
+  specialUsedB = false;
+  turn = 'A';
 
-  phase = "A選択";
-  turn = 0;
-  updateUI();
-  showLog("プレイヤーAの入力です");
-}
-
-function updateUI() {
-  const player = players[turn];
-  document.getElementById("specialDisplay").innerText =
-    `★カード：${player.special}${player.used ? "（使用済）" : "（未使用）"}`;
-  document.getElementById("hpArea").innerText =
-    `あなた：${"❤️".repeat(players[0].hp)} ／ 相手：${"❤️".repeat(players[1].hp)}`;
-  document.getElementById("specialBtn").style.display = player.used ? "none" : "inline-block";
+  updateHP();
+  updateSpecialDisplay();
+  setLog('');
+  document.getElementById("specialBtn").style.display = "inline-block";
   document.getElementById("actionArea").style.display = "block";
-  document.getElementById("confirmArea").style.display = "block";
+
+  if (gameMode === 'cpu') {
+    setLog(`あなたのスペシャルカード: ${specialA}（1回のみ）`);
+  } else {
+    setLog("プレイヤーAの番です");
+  }
 }
 
-function chooseAction(move) {
-  players[turn].move = move;
-  showLog(`あなたの選択：${move}`);
+function updateHP() {
+  document.getElementById("myHP").innerText = "❤️".repeat(myHP);
+  document.getElementById("oppHP").innerText = "❤️".repeat(oppHP);
+}
+
+function updateSpecialDisplay() {
+  if (gameMode === 'cpu') {
+    document.getElementById("specialDisplay").innerText =
+      `スペシャルカード: ${specialA} ${specialUsedA ? "（使用済）" : "（1回）"}`;
+  } else {
+    const sp = (turn === 'A') ? specialA : specialB;
+    const used = (turn === 'A') ? specialUsedA : specialUsedB;
+    document.getElementById("specialDisplay").innerText =
+      `スペシャルカード: ${sp} ${used ? "（使用済）" : "（1回）"}`;
+    document.getElementById("playerTurn").innerText =
+      `プレイヤー${turn}の番`;
+  }
+}
+
+function setLog(text) {
+  document.getElementById("log").innerText = text;
 }
 
 function useSpecial() {
-  if (players[turn].used) return;
-  players[turn].used = true;
-  showLog(`★スペシャルカード「${players[turn].special}」を使用！`);
-  updateUI();
+  if (gameMode === 'cpu' && specialUsedA) return alert("もう使えません！");
+  if (gameMode === 'pvp') {
+    if ((turn === 'A' && specialUsedA) || (turn === 'B' && specialUsedB)) {
+      return alert("もう使えません！");
+    }
+  }
+  if (turn === 'A') specialUsedA = true;
+  else specialUsedB = true;
+  document.getElementById("specialBtn").style.display = "none";
+  updateSpecialDisplay();
 }
 
-function confirmTurn() {
-  if (!players[turn].move) {
-    alert("行動を選択してください");
-    return;
-  }
-  if (phase === "A選択") {
-    turn = 1;
-    phase = "B選択";
-    showLog("プレイヤーBの入力です");
-    updateUI();
-  } else if (phase === "B選択") {
-    resolveBattle();
-    phase = "A選択";
-    turn = 0;
-    players[0].move = players[1].move = null;
-    updateUI();
-  }
-}
-
-function resolveBattle() {
-  const p1 = players[0], p2 = players[1];
-  let result = `A：${p1.move}${p1.used ? `＋${p1.special}` : ""}\n`;
-  result += `B：${p2.move}${p2.used ? `＋${p2.special}` : ""}\n`;
-
-  const p1type = p1.used ? "special" : "normal";
-  const p2type = p2.used ? "special" : "normal";
-  const winner = determineWinner(p1.move, p2.move, p1.special, p2.special, p1type, p2type);
-
-  if (winner === "draw") {
-    result += "結果：あいこ（両者HP変動なし）";
-  } else if (winner === "A") {
-    const damage = getDamage(p1type, p2type);
-    p2.hp -= damage[0];
-    p1.hp += damage[1];
-    if (p1.hp > 4) p1.hp = 4;
-    result += `Aの勝ち！ → BのHP-${damage[0]} / AのHP+${damage[1]}`;
+function chooseAction(playerMove) {
+  if (gameMode === 'cpu') {
+    const cpuMove = moves[Math.floor(Math.random() * 3)];
+    const result = judge(playerMove, cpuMove, specialUsedA, false, specialA, null);
+    applyDamage(result);
+    setLog(`あなた: ${playerMove} ／ 相手: ${cpuMove}\n${result.log}`);
   } else {
-    const damage = getDamage(p2type, p1type);
-    p1.hp -= damage[0];
-    p2.hp += damage[1];
-    if (p2.hp > 4) p2.hp = 4;
-    result += `Bの勝ち！ → AのHP-${damage[0]} / BのHP+${damage[1]}`;
+    if (turn === 'A') {
+      moveA = playerMove;
+      document.getElementById("actionArea").style.display = "none";
+      document.getElementById("specialBtn").style.display = "none";
+      turn = 'B';
+      updateSpecialDisplay();
+      setLog("プレイヤーBの番です");
+      document.getElementById("actionArea").style.display = "block";
+      document.getElementById("specialBtn").style.display = specialUsedB ? "none" : "inline-block";
+    } else {
+      moveB = playerMove;
+      document.getElementById("actionArea").style.display = "none";
+      document.getElementById("specialBtn").style.display = "none";
+      const result = judge(moveA, moveB, specialUsedA, specialUsedB, specialA, specialB);
+      applyDamage(result);
+      setLog(`A: ${moveA} ／ B: ${moveB}\n${result.log}`);
+      turn = 'A';
+      moveA = null;
+      moveB = null;
+      specialUsedA = false;
+      specialUsedB = false;
+      updateSpecialDisplay();
+      document.getElementById("actionArea").style.display = "block";
+      document.getElementById("specialBtn").style.display = "inline-block";
+    }
   }
-
-  if (p1.hp <= 0) result += "\n🎉 Bの勝利！";
-  else if (p2.hp <= 0) result += "\n🎉 Aの勝利！";
-
-  showLog(result);
+  updateHP();
 }
 
-function determineWinner(a, b, sa, sb, ta, tb) {
-  if (ta === "normal" && tb === "normal") {
-    if (a === b) return "draw";
-    if (
-      (a === '攻撃' && b === '投げ') ||
-      (a === '防御' && b === '攻撃') ||
-      (a === '投げ' && b === '防御')
-    ) return "A";
-    return "B";
+function applyDamage({ damageToA, damageToB }) {
+  myHP -= damageToA;
+  oppHP -= damageToB;
+  if (myHP <= 0 || oppHP <= 0) {
+    const msg = myHP <= 0 && oppHP <= 0 ? "引き分け！" :
+                myHP <= 0 ? "あなたの負け！" : "あなたの勝ち！";
+    setLog(msg);
+    document.getElementById("actionArea").style.display = "none";
+    document.getElementById("specialBtn").style.display = "none";
   }
-
-  if (ta === "special" && tb === "normal") {
-    if (specialWins(sa, b)) return "A";
-    return "B";
-  }
-
-  if (ta === "normal" && tb === "special") {
-    if (specialWins(sb, a)) return "B";
-    return "A";
-  }
-
-  if (ta === "special" && tb === "special") {
-    if (sa === sb) return "draw";
-    if (specialWins(sa, sb)) return "A";
-    return "B";
-  }
-  return "draw";
 }
 
-function specialWins(card, target) {
-  const chart = {
-    フェイント: ['防御', 'カウンター'],
-    スマッシュ: ['投げ', 'フェイント'],
-    カウンター: ['攻撃', 'スマッシュ']
+// 勝敗判定（Rev.Aルール対応）
+function judge(p1, p2, sp1, sp2, card1, card2) {
+  let dmgA = 0, dmgB = 0, log = '';
+  const s1 = sp1 ? card1 : null;
+  const s2 = sp2 ? card2 : null;
+
+  // スペシャル vs スペシャル
+  if (s1 && s2) {
+    if (wins(s1, s2)) {
+      dmgB = 1;
+      log = `スペシャル同士！${s1}が勝利（相手-1 自分+1）`;
+      myHP++; // 回復
+    } else if (wins(s2, s1)) {
+      dmgA = 1;
+      log = `スペシャル同士！${s2}が勝利（相手-1 自分+1）`;
+      oppHP++;
+    } else {
+      dmgA = 1;
+      dmgB = 1;
+      log = `スペシャル同士のあいこ！（両者-1）`;
+    }
+  }
+  // スペシャル vs ノーマル
+  else if (s1 && !s2) {
+    if (wins(card1, p2)) {
+      dmgB = 2;
+      log = `スペシャル成功！（相手-2）`;
+    } else {
+      dmgA = 1;
+      log = `スペシャル失敗（自分-1）`;
+    }
+  }
+  else if (!s1 && s2) {
+    if (wins(card2, p1)) {
+      dmgA = 2;
+      log = `相手スペシャル成功！（あなた-2）`;
+    } else {
+      dmgB = 1;
+      log = `相手スペシャル失敗（相手-1）`;
+    }
+  }
+  // ノーマル vs ノーマル
+  else {
+    if (p1 === p2) {
+      log = 'あいこ！';
+    } else if (wins(p1, p2)) {
+      dmgB = 1;
+      log = 'あなたの勝ち！';
+    } else {
+      dmgA = 1;
+      log = 'あなたの負け！';
+    }
+  }
+
+  return { damageToA: dmgA, damageToB: dmgB, log };
+}
+
+// 勝ち判定ロジック（行動とスペシャル両方）
+function wins(a, b) {
+  const winMap = {
+    '攻撃': ['投げ', 'フェイント'],
+    '防御': ['攻撃', 'スマッシュ'],
+    '投げ': ['防御', 'カウンター'],
+    'フェイント': ['防御', 'カウンター'],
+    'カウンター': ['攻撃', 'スマッシュ'],
+    'スマッシュ': ['投げ', 'フェイント'],
   };
-  return chart[card]?.includes(target);
-}
-
-function getDamage(typeWin, typeLose) {
-  if (typeWin === "special" && typeLose === "normal") return [2, 0];
-  if (typeWin === "special" && typeLose === "special") return [1, 1];
-  if (typeWin === "normal" && typeLose === "normal") return [1, 0];
-  return [0, 0];
-}
-
-function showLog(text) {
-  document.getElementById("log").innerText = text;
+  return winMap[a]?.includes(b);
 }
