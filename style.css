@@ -1,74 +1,49 @@
-/* ────────── ベース ────────── */
-body{
-  font-family:sans-serif;
-  background-color:#111;
-  color:#fff;
-  text-align:center;
-  padding:20px;
+body {
+  font-family: sans-serif;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
 }
-h1{
-  color:gold;
-  font-weight:bold;
-  font-size:28px;
-  margin:12px 0;
+h1 {
+  color: gold;
+  font-weight: bold;
+  font-size: 28px;
+  margin: 12px 0;
 }
-
-/* ────────── リンクボタン ────────── */
-.rule-button{
-  display:inline-block;
-  background-color:#2a2a2a;
-  color:#fff;
-  border:1px dashed #888;
-  border-radius:8px;
-  padding:8px 16px;
-  margin:12px 0;
-  text-decoration:none;
-  font-size:15px;
+.start-btn, .special-btn, .action-buttons button {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 2px 2px #000;
+  font-size: 16px;
+  margin: 8px;
+  padding: 10px 20px;
 }
-.rule-button:hover{background-color:#444}
-
-/* ────────── スペシャル表示 ────────── */
-.special-info{
-  background:gold;
-  color:#000;
-  font-weight:bold;
-  padding:6px 12px;
-  margin:10px auto;
-  border-radius:8px;
-  display:inline-block;
+.start-btn { background: #444; color: #fff; }
+.special-btn { background: #111; color: #fff; }
+.action-buttons button { background: #0066ff; color: #fff; }
+.action-buttons button:hover { background: #0080ff; }
+.log-box {
+  background: #222;
+  border: 1px dashed #888;
+  padding: 10px;
+  margin: 12px auto;
+  width: 90%;
+  max-width: 320px;
+  min-height: 40px;
+  white-space: pre-wrap;
 }
-
-/* ────────── HP表示 ────────── */
-.hp-area{
-  font-size:20px;
-  margin:10px 0;
-  line-height:1.6;
+.hp-area {
+  font-size: 20px;
+  margin: 10px 0;
+  line-height: 1.6;
 }
-
-/* ────────── ログ ────────── */
-.log-box{
-  background:#222;
-  border:1px dashed #888;
-  padding:10px;
-  margin:12px auto;
-  width:90%;
-  max-width:320px;
-  min-height:40px;
-  white-space:pre-wrap;
+.special-info {
+  background: gold;
+  color: #000;
+  font-weight: bold;
+  padding: 6px 12px;
+  margin: 10px auto;
+  border-radius: 8px;
+  display: inline-block;
 }
-
-/* ────────── ボタン類 ────────── */
-.start-btn,
-.special-btn,
-.action-buttons button{
-  border:none;
-  border-radius:8px;
-  box-shadow:2px 2px #000;
-  font-size:16px;
-  margin:8px;
-  padding:10px 20px;
-}
-.start-btn{background:#444;color:#fff}
-.special-btn{background:#111;color:#fff}
-.action-buttons button{background:#0066ff;color:#fff}
-.action-buttons button:hover{background:#0080ff}
