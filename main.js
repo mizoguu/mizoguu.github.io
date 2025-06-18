@@ -9,3 +9,4 @@ function selectMode(mode){
   if(mode==='cpu'){ startCPU(); }
   else{ startPvP(); }
 }
+console.log("最新版の main.js が読み込まれました");
