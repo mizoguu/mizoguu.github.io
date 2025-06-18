@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MIZOGU FIGHT</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
   <h1>MIZOGU FIGHT</h1>
@@ -17,17 +18,20 @@
   </div>
 
   <div id="gameArea" style="display:none;">
-    <button id="backBtn" class="small-btn" onclick="goHome()">🏠 ホームへ戻る</button>
     <div class="special-info" id="specialInfo">スペシャルカード：未使用</div>
     <div class="hp-area" id="hpArea">あなた：❤️❤️❤️❤️ ／ 相手：❤️❤️❤️❤️</div>
     <div class="log-box" id="log"></div>
+
     <button id="specialBtn" class="special-btn" onclick="useSpecial()">★カードを使う</button>
+
     <div class="action-buttons" id="actionArea">
       <button onclick="chooseAction('攻撃')">👊 攻撃</button>
       <button onclick="chooseAction('防御')">🛡 防御</button>
       <button onclick="chooseAction('投げ')">🤼‍♂️ 投げ</button>
     </div>
-    <button class="start-btn" onclick="startGame()">ゲーム開始</button>
+
+    <button id="confirmBtn" class="start-btn" style="display:none;" onclick="confirmTurn()">確認</button>
+    <button class="start-btn" onclick="returnHome()">ホームへ戻る</button>
   </div>
 
   <script src="main.js"></script>
