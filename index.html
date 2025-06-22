@@ -9,37 +9,27 @@
 <body>
   <div id="home" class="screen">
     <h1>MIZOGU FIGHT</h1>
-    <button onclick="showScreen('rulebook')">ルールブック</button>
-    <button onclick="showScreen('cardlist')">カード一覧</button>
-    <button onclick="startCPU()">CPU対戦</button>
-    <button onclick="startPvP()">対人対戦</button>
+    <button onclick="showScreen('rules')">ルールブック</button>
+    <button onclick="showScreen('cards')">カード一覧</button>
+    <button onclick="startGame('cpu')">CPU対戦</button>
+    <button onclick="startGame('pvp')">対人対戦</button>
   </div>
 
-  <div id="rulebook" class="screen">
+  <div id="rules" class="screen">
     <h2>ルールブック</h2>
     <p>ここにルールブックの内容が入ります。</p>
     <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="cardlist" class="screen">
+  <div id="cards" class="screen">
     <h2>カード一覧</h2>
     <p>カード説明や画像一覧を表示</p>
     <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="pvp" class="screen">
-    <h2>対人戦</h2>
-    <div id="pvpStatus"></div>
-    <div id="playerInput"></div>
-    <button id="confirmBtn" onclick="confirmChoices()">確認</button>
-    <button onclick="showScreen('home')">ホームへ戻る</button>
-  </div>
-
-  <div id="cpu" class="screen">
-    <h2>CPU対戦</h2>
-    <div id="cpuStatus"></div>
-    <div id="cpuInput"></div>
-    <button id="cpuConfirmBtn" onclick="confirmCPU()">確認</button>
+  <div id="game" class="screen">
+    <h2 id="modeTitle">ゲームモード</h2>
+    <div id="gameContent">ここにゲームが表示されます。</div>
     <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
