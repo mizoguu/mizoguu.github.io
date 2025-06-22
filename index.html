@@ -6,36 +6,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="home" class="screen">
+  <div class="screen" id="home">
     <h1>MIZOGU FIGHT</h1>
-    <button onclick="showScreen('rulebook')">ルールブック</button>
-    <button onclick="showScreen('cards')">カード一覧</button>
-    <button onclick="startCpu()">CPU対戦</button>
-    <button onclick="startPvP()">対人戦</button>
+    <button onclick="startGame()">CPU対戦</button>
   </div>
 
-  <div id="rulebook" class="screen" style="display:none">
-    <h2>ルールブック</h2>
-    <p>（ここにルールテキストを入れてください）</p>
-    <button onclick="showScreen('home')">ホームへ戻る</button>
-  </div>
-
-  <div id="cards" class="screen" style="display:none">
-    <h2>カード一覧</h2>
-    <p>（ここにカード説明を入れてください）</p>
-    <button onclick="showScreen('home')">ホームへ戻る</button>
-  </div>
-
-  <div id="cpu" class="screen" style="display:none">
-    <h2>CPU対戦モード</h2>
-    <p>ここにCPUとの簡易対戦を実装予定です。</p>
-    <button onclick="showScreen('home')">ホームへ戻る</button>
-  </div>
-
-  <div id="pvp" class="screen" style="display:none">
-    <h2>対人戦モード</h2>
-    <p>ここに交互入力型の対人戦を実装予定です。</p>
-    <button onclick="showScreen('home')">ホームへ戻る</button>
+  <div class="screen" id="game" style="display:none;">
+    <h2>CPU対戦</h2>
+    <div id="playerHP">あなたの体力: 4</div>
+    <div id="cpuHP">CPUの体力: 4</div>
+    <p>カードを選んでください：</p>
+    <button onclick="playerSelect('攻撃')">攻撃</button>
+    <button onclick="playerSelect('防御')">防御</button>
+    <button onclick="playerSelect('投げ')">投げ</button>
+    <div id="resultArea"></div>
+    <button onclick="resetGame()">最初に戻る</button>
   </div>
 
   <script src="main.js"></script>
