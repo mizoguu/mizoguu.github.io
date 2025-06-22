@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MIZOGU FIGHT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="home-screen">
+    <h1>MIZOGU FIGHT</h1>
+    <button onclick="showScreen('rulebook')">ルールブック</button>
+    <button onclick="showScreen('card-list')">カード一覧</button>
+    <button onclick="showScreen('cpu-battle')">CPU対戦</button>
+    <button onclick="showScreen('pvp-battle')">対人対戦</button>
+  </div>
+
+  <div id="rulebook" class="screen" style="display:none">
+    <h2>ルールブック</h2>
+    <p>ここにルールブックの内容が入ります。</p>
+    <button onclick="goHome()">ホームへ戻る</button>
+  </div>
+
+  <div id="card-list" class="screen" style="display:none">
+    <h2>カード一覧</h2>
+    <p>カード説明や画像一覧を表示</p>
+    <button onclick="goHome()">ホームへ戻る</button>
+  </div>
+
+  <div id="cpu-battle" class="screen" style="display:none">
+    <h2>CPU対戦モード</h2>
+    <p>ここからゲームがスタートします。</p>
+    <button onclick="goHome()">ホームへ戻る</button>
+  </div>
+
+  <div id="pvp-battle" class="screen" style="display:none">
+    <h2>対人戦モード</h2>
+    <p>ここからゲームがスタートします。</p>
+    <button onclick="goHome()">ホームへ戻る</button>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
