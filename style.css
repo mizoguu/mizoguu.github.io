@@ -1,18 +1,17 @@
 body {
   font-family: sans-serif;
   text-align: center;
+  background: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+
+.screen {
   padding: 20px;
 }
+
 button {
+  font-size: 1.2em;
   margin: 10px;
   padding: 10px 20px;
-  font-size: 1em;
-  background-color: #eee;
-  border: none;
-  border-radius: 20px;
-  color: #337ab7;
-}
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
 }
