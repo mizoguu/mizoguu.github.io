@@ -1,110 +1,44 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MIZOGU FIGHT</title>
-  <style>
-    body { font-family:sans-serif; text-align:center; padding:20px; margin:0; }
-    .hidden { display:none; }
-    button { margin:6px; padding:10px 20px; border:none; border-radius:20px; background:#e0e0f8; }
-    h1,h2 { margin:18px 0; }
-    #status { margin:12px 0; min-height:48px; }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="home">
+  <div id="home" class="screen">
     <h1>MIZOGU FIGHT</h1>
-    <button onclick="startCpu()">CPU対戦</button>
-    <button onclick="startPvp()">対人戦</button><br/>
-    <button onclick="show('rules')">ルールブック</button>
-    <button onclick="show('cards')">カード一覧</button>
-    <button onclick="show('special')">スペシャルカードルール</button>
- <button onclick="show('pvp'); startPvp();">→ テスト：対人戦モード</button>
+    <button onclick="showScreen('rulebook')">ルールブック</button>
+    <button onclick="showScreen('cards')">カード一覧</button>
+    <button onclick="showScreen('special')">スペシャルカードルール</button>
+    <button onclick="startPvp()">対人戦</button>
   </div>
 
-  <div id="rules" class="hidden">
+  <div id="rulebook" class="screen" style="display:none">
     <h2>ルールブック</h2>
-    …（前回と同じ内容）…
-    <button onclick="show('home')">ホームへ戻る</button>
+    <p>ここにルールブックの内容が入ります。</p>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="cards" class="hidden">
+  <div id="cards" class="screen" style="display:none">
     <h2>カード一覧</h2>
-    …（前回と同じ内容）…
-    <button onclick="show('home')">ホームへ戻る</button>
+    <p>カード説明や画像一覧を表示</p>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="special" class="hidden">
+  <div id="special" class="screen" style="display:none">
     <h2>スペシャルカードルール</h2>
-    …（前回と同じ内容）…
-    <button onclick="show('home')">ホームへ戻る</button>
+    <p>スペシャルカードの効果や勝敗計算</p>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="cpu" class="hidden">
-    <h2>CPU対戦 (準備中)</h2>
-    <button onclick="show('home')">ホームへ戻る</button>
+  <div id="pvp" class="screen" style="display:none">
+    <h2>対人戦モード</h2>
+    <p>ここからゲームがスタートします。</p>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="pvp" class="hidden">
-    <h2>対人戦（交互入力）</h2>
-    <div id="status"></div>
-    <div id="inputArea"></div>
-    <div id="confirmArea" class="hidden"><button id="confirmBtn">確認</button></div>
-    <button onclick="show('home')">ホームへ戻る</button>
-  </div>
-
-  <script>
-    function show(id){ document.querySelectorAll('body>div').forEach(el=>el.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
-    const specials=["フェイント","カウンター","スマッシュ"];
-    function randomSp(){ return specials[Math.floor(Math.random()*specials.length)]; }
-    function startCpu(){ show('cpu'); }
-
-    let p1={hp:4,special:'',used:false,move:'',useSp:false};
-    let p2={hp:4,special:'',used:false,move:'',useSp:false};
-    let turn=1, phase='';
-    function startPvp(){
-      p1.hp=p2.hp=4; p1.used=p2.used=false;
-      p1.special=randomSp(); p2.special=randomSp();
-      turn=1; phase='p1-input'; show('pvp');
-      renderStatus(''); renderInput();
-    }
-    function renderStatus(msg){ document.getElementById('status').innerHTML = `<p>ターン ${turn}</p>${msg}`; }
-    function renderInput(){
-      const area=document.getElementById('inputArea'), conf=document.getElementById('confirmArea');
-      conf.classList.add('hidden');
-      if(phase==='p1-input'){ area.innerHTML=inputHtml('1P',p1); bindSubmit(p1,'p1-confirm','1Pが選択しました。端末を2Pに渡してください'); }
-      else if(phase==='p2-input'){ area.innerHTML=inputHtml('2P',p2); bindSubmit(p2,'reveal','2Pが選択しました。確認してください'); }
-    }
-    function inputHtml(lbl,pl){ return `<p>${lbl} の番<br>★カード: ${pl.used?'（使用済）':pl.special}</p>
-      <select id="selMove"><option>攻撃</option><option>防御</option><option>投げ</option></select><br>
-      <label><input type="checkbox" id="chkSp" ${pl.used?'disabled':''}> ★カードを使う</label><br>
-      <button id="submitBtn">決定</button>`; }
-    function bindSubmit(pl,nextPhase,msg){
-      document.getElementById('submitBtn').onclick = ()=>{
-        pl.move=document.getElementById('selMove').value;
-        pl.useSp=document.getElementById('chkSp').checked && !pl.used;
-        if(pl.useSp) pl.used = true;
-        phase= nextPhase;
-        renderStatus(msg);
-        const c=document.getElementById('confirmArea');
-        c.classList.remove('hidden');
-        document.getElementById('confirmBtn').onclick = () => {
-          c.classList.add('hidden');
-          if(nextPhase==='p1-confirm'){ phase='p2-input'; renderInput(); }
-          else reveal();
-        };
-        document.getElementById('inputArea').innerHTML = '';
-      };
-    }
-    function reveal(){
-      const txt=`1P:${p1.move}${p1.useSp?'（★'+p1.special+'）':''} ／ 2P:${p2.move}${p2.useSp?'（★'+p2.special+'）':''}`;
-      renderStatus(txt+"<br>※ 判定ロジック未実装");
-      turn++;
-      phase='p1-input';
-      setTimeout(renderInput,2500);
-    }
-    show('home');
-  </script>
+  <script src="main.js"></script>
 </body>
 </html>
