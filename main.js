@@ -7,3 +7,7 @@ function startPvp() {
   showScreen('pvp');
   console.log("対人戦モード開始");
 }
+function startCpu() {
+  showScreen('cpu');
+  console.log("CPU対戦モード開始");
+}
