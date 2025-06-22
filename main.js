@@ -1,47 +1,42 @@
-let playerHP = 4;
-let cpuHP = 4;
+const actions = ["攻撃","防御","投げ"];
+let playerHP = 4, cpuHP = 4;
 
-function startGame() {
-  document.getElementById('home').style.display = 'none';
-  document.getElementById('game').style.display = 'block';
-  updateHP();
+function show(id) {
+  document.querySelectorAll('.screen').forEach(e => e.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
 }
 
-function playerSelect(playerCard) {
-  const cards = ['攻撃', '防御', '投げ'];
-  const cpuCard = cards[Math.floor(Math.random() * 3)];
-  const result = judge(playerCard, cpuCard);
-  applyResult(result);
-  showResult(playerCard, cpuCard, result);
+function startCpu() {
+  playerHP = cpuHP = 4;
   updateHP();
-  checkWin();
+  document.getElementById('cpuLog').innerHTML = '';
+  show('cpu');
+}
+
+function playerAction(choice) {
+  const cpuChoice = actions[Math.floor(Math.random() * 3)];
+  const res = judge(choice, cpuChoice);
+  applyResult(res);
+  log(`${choice} vs ${cpuChoice} → ${res==='win'?'あなたの勝ち':res==='lose'?'CPUの勝ち':'あいこ'}`);
+  updateHP();
+  checkGameOver();
 }
 
 function judge(p, c) {
-  if (p === c) return 'draw';
-  if (
-    (p === '攻撃' && c === '投げ') ||
-    (p === '防御' && c === '攻撃') ||
-    (p === '投げ' && c === '防御')
-  ) {
-    return 'win';
-  }
-  return 'lose';
+  if(p===c) return "draw";
+  if((p==="攻撃"&&c==="投げ")||(p==="防御"&&c==="攻撃")||(p==="投げ"&&c==="防御")) return "win";
+  return "lose";
 }
 
-function applyResult(result) {
-  if (result === 'win') cpuHP--;
-  else if (result === 'lose') playerHP--;
+function applyResult(res) {
+  if(res==="win") cpuHP--;
+  else if(res==="lose") playerHP--;
 }
 
-function showResult(p, c, result) {
-  const msg = {
-    win: "あなたの勝ち！",
-    lose: "CPUの勝ち！",
-    draw: "あいこ！"
-  };
-  document.getElementById('resultArea').innerHTML = 
-    `あなた：${p} ／ CPU：${c} → ${msg[result]}`;
+function log(txt) {
+  const el = document.getElementById('cpuLog');
+  el.innerText += txt + "\n";
+  el.scrollTop = el.scrollHeight;
 }
 
 function updateHP() {
@@ -49,20 +44,12 @@ function updateHP() {
   document.getElementById('cpuHP').textContent = `CPUの体力: ${cpuHP}`;
 }
 
-function checkWin() {
-  if (playerHP <= 0) {
+function checkGameOver() {
+  if(playerHP<=0) {
     alert("CPUの勝ち！");
-    resetGame();
-  } else if (cpuHP <= 0) {
+    show('home');
+  } else if(cpuHP<=0) {
     alert("あなたの勝ち！");
-    resetGame();
+    show('home');
   }
-}
-
-function resetGame() {
-  playerHP = 4;
-  cpuHP = 4;
-  document.getElementById('resultArea').textContent = '';
-  document.getElementById('home').style.display = 'block';
-  document.getElementById('game').style.display = 'none';
 }
