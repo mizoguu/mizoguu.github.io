@@ -1,53 +1,43 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>MIZOGU FIGHT</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="home" class="screen">
     <h1>MIZOGU FIGHT</h1>
     <button onclick="showScreen('rulebook')">ルールブック</button>
     <button onclick="showScreen('cards')">カード一覧</button>
-    <button onclick="showScreen('special')">スペシャルカードルール</button>
-    <button onclick="startPvp()">対人戦</button>
+    <button onclick="startCpu()">CPU対戦</button>
+    <button onclick="startPvP()">対人戦</button>
   </div>
 
   <div id="rulebook" class="screen" style="display:none">
     <h2>ルールブック</h2>
-    <p>ここにルールブックの内容が入ります。</p>
+    <p>（ここにルールテキストを入れてください）</p>
     <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
   <div id="cards" class="screen" style="display:none">
     <h2>カード一覧</h2>
-    <p>カード説明や画像一覧を表示</p>
+    <p>（ここにカード説明を入れてください）</p>
     <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="special" class="screen" style="display:none">
-    <h2>スペシャルカードルール</h2>
-    <p>スペシャルカードの効果や勝敗計算</p>
+  <div id="cpu" class="screen" style="display:none">
+    <h2>CPU対戦モード</h2>
+    <p>ここにCPUとの簡易対戦を実装予定です。</p>
     <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
   <div id="pvp" class="screen" style="display:none">
     <h2>対人戦モード</h2>
-    <p>ここからゲームがスタートします。</p>
+    <p>ここに交互入力型の対人戦を実装予定です。</p>
     <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
   <script src="main.js"></script>
 </body>
 </html>
-<!-- ホーム画面内に追加 -->
-<button onclick="startCpu()">CPU対戦</button>
-
-<!-- CPU対戦画面 -->
-<div id="cpu" class="screen" style="display:none">
-  <h2>CPU対戦モード</h2>
-  <p>ここでCPUと対戦ができます。</p>
-  <button onclick="showScreen('home')">ホームへ戻る</button>
-</div>
