@@ -1,36 +1,25 @@
-/* ベース */
 body {
   font-family: sans-serif;
-  margin: 0;
-  background: #f7f7f7;
   text-align: center;
-  padding: 24px;
+  background-color: #f8f8f8;
+  margin: 0;
+  padding: 20px;
 }
-h1, h2 { margin: 12px 0; }
 
-/* 画面切替 */
-.screen { padding: 20px; }
-.hidden  { display: none; }
-
-/* ボタン */
 button {
-  margin: 6px;
-  padding: 10px 22px;
+  margin: 10px;
+  padding: 10px 20px;
   font-size: 16px;
+  border-radius: 12px;
   border: none;
-  border-radius: 18px;
-  background: #dde8ff;
+  background-color: #ddd;
+  color: #333;
 }
-button:hover { background: #c7d8ff; }
 
-/* ログ表示 */
-.log {
-  text-align: left;
-  background: #fff;
-  border: 1px solid #ccc;
-  padding: 10px;
-  max-height: 180px;
-  overflow-y: auto;
-  margin-top: 14px;
-  white-space: pre-wrap;
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
 }
