@@ -7,37 +7,59 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="home-screen">
+
+  <!-- ホーム画面 -->
+  <section id="home" class="screen">
     <h1>MIZOGU FIGHT</h1>
-    <button onclick="showScreen('rulebook')">ルールブック</button>
-    <button onclick="showScreen('card-list')">カード一覧</button>
-    <button onclick="showScreen('cpu-battle')">CPU対戦</button>
-    <button onclick="showScreen('pvp-battle')">対人対戦</button>
-  </div>
+    <button onclick="show('rules')">ルールブック</button>
+    <button onclick="show('cards')">カード一覧</button>
+    <button onclick="startCpu()">CPU対戦</button>
+    <button onclick="show('pvp')">対人戦（準備中）</button>
+  </section>
 
-  <div id="rulebook" class="screen" style="display:none">
+  <!-- ルールブック -->
+  <section id="rules" class="screen hidden">
     <h2>ルールブック</h2>
-    <p>ここにルールブックの内容が入ります。</p>
-    <button onclick="goHome()">ホームへ戻る</button>
-  </div>
+    <p>
+      3すくみ＋スペシャルカードで戦う読み合いゲーム。<br>
+      HP を 0 にすれば 1 本先取。2 本先取で勝利。
+    </p>
+    <button onclick="show('home')">ホームへ戻る</button>
+  </section>
 
-  <div id="card-list" class="screen" style="display:none">
+  <!-- カード一覧 -->
+  <section id="cards" class="screen hidden">
     <h2>カード一覧</h2>
-    <p>カード説明や画像一覧を表示</p>
-    <button onclick="goHome()">ホームへ戻る</button>
-  </div>
+    <p>
+      <strong>行動カード</strong><br>
+      攻撃 ▶ 投げに勝ち／防御に負け<br>
+      防御 ▶ 攻撃に勝ち／投げに負け<br>
+      投げ ▶ 防御に勝ち／攻撃に負け
+    </p>
+    <button onclick="show('home')">ホームへ戻る</button>
+  </section>
 
-  <div id="cpu-battle" class="screen" style="display:none">
-    <h2>CPU対戦モード</h2>
-    <p>ここからゲームがスタートします。</p>
-    <button onclick="goHome()">ホームへ戻る</button>
-  </div>
+  <!-- CPU対戦画面 -->
+  <section id="cpu" class="screen hidden">
+    <h2>CPU対戦</h2>
+    <div id="hpArea">
+      <span id="playerHP"></span>　|　<span id="cpuHP"></span>
+    </div>
+    <p>カードを選んでください：</p>
+    <button onclick="playerMove('攻撃')">攻撃</button>
+    <button onclick="playerMove('防御')">防御</button>
+    <button onclick="playerMove('投げ')">投げ</button>
 
-  <div id="pvp-battle" class="screen" style="display:none">
-    <h2>対人戦モード</h2>
-    <p>ここからゲームがスタートします。</p>
-    <button onclick="goHome()">ホームへ戻る</button>
-  </div>
+    <pre id="log" class="log"></pre>
+    <button onclick="show('home')">ホームへ戻る</button>
+  </section>
+
+  <!-- 対人戦（ダミー） -->
+  <section id="pvp" class="screen hidden">
+    <h2>対人戦モード（準備中）</h2>
+    <p>今後実装予定です。</p>
+    <button onclick="show('home')">ホームへ戻る</button>
+  </section>
 
   <script src="main.js"></script>
 </body>
