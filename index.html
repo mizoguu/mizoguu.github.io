@@ -2,45 +2,175 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MIZOGU FIGHT</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      background-color: #e0e0e0;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    .subtitle {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 20px 0 10px;
+    }
+  </style>
 </head>
 <body>
-  <div id="homeScreen" class="screen">
-    <h1>MIZOGU FIGHT</h1>
-    <button onclick="showScreen('ruleScreen')">ルールブック</button>
-    <button onclick="showScreen('cardScreen')">カード一覧</button>
-    <button onclick="startGame('cpu')">CPU対戦</button>
+  <div id="home">
+    <div class="title">MIZOGU FIGHT</div>
+    <button onclick="showScreen('rules')">ルールブック</button>
+    <button onclick="showScreen('cards')">カード一覧</button>
+    <button onclick="showScreen('special')">スペシャルカードルール</button>
     <button onclick="startGame('pvp')">交互入力対戦</button>
   </div>
 
-  <div id="ruleScreen" class="screen" style="display:none">
-    <h2>ルールブック</h2>
-    <p>3すくみの読み合いゲームです。攻撃、防御、投げを選んで戦います。</p>
-    <p>スペシャルカードで特殊な効果を1回使えます。</p>
-    <button onclick="showScreen('homeScreen')">ホームへ戻る</button>
+  <div id="rules" class="hidden">
+    <div class="subtitle">ルールブック</div>
+    <p>このゲームは、3つの行動カード（攻撃・防御・投げ）と、1枚のスペシャルカードによって構成されます。<br>
+    相手の読みを外し、体力を0にすれば勝利となり、先に2本先取した側が勝ちとなります。</p>
+    <p><strong>― 勝利条件 ―</strong><br>
+    ノーマル：HP 4→0<br>
+    ハード：HP 5→0<br>
+    ※ スペシャルカードは1回のみ使用可能</p>
+    <p><strong>― ターンの流れ ―</strong><br>
+    1. 行動カードを伏せる<br>
+    2. 必要ならスペシャルカード使用を宣言<br>
+    3. 両者公開 → 判定</p>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="cardScreen" class="screen" style="display:none">
-    <h2>カード一覧</h2>
-    <p>攻撃 > 投げ／投げ > 防御／防御 > 攻撃</p>
-    <p>★カード：フェイント、カウンター、スマッシュ</p>
-    <button onclick="showScreen('homeScreen')">ホームへ戻る</button>
+  <div id="cards" class="hidden">
+    <div class="subtitle">カード一覧</div>
+    <p><strong>― 行動カード ―</strong><br>
+    ● 攻撃：投げ・フェイントに勝ち／防御・カウンターに負け<br>
+    ● 防御：攻撃・スマッシュに勝ち／投げ・フェイントに負け<br>
+    ● 投げ：防御・カウンターに勝ち／攻撃・スマッシュに負け<br>
+    勝利：相手HP -1／あいこ：HP変動なし／敗北：自分HP -1</p>
+    <p><strong>― スペシャルカード ―</strong><br>
+    ● フェイント：防御・カウンターに勝ち／攻撃・スマッシュに負け<br>
+    ● スマッシュ：投げ・フェイントに勝ち／防御・カウンターに負け<br>
+    ● カウンター：攻撃・スマッシュに勝ち／投げ・フェイントに負け</p>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <div id="gameScreen" class="screen" style="display:none">
-    <h2>MIZOGU FIGHT</h2>
+  <div id="special" class="hidden">
+    <div class="subtitle">スペシャルカードルール</div>
+    <p><strong>― 配布と保持 ―</strong><br>
+    ゲーム開始時にスペシャルカード1枚をランダム配布（非公開）。</p>
+    <p><strong>― 使用方法 ―</strong><br>
+    行動カードを伏せた後、「使用宣言」して提出（1回限り）。</p>
+    <p><strong>― 勝敗関係 ―</strong><br>
+    ・ フェイント：防御・カウンターに勝利<br>
+    ・ スマッシュ：投げ・フェイントに勝利<br>
+    ・ カウンター：攻撃・スマッシュに勝利</p>
+    <p><strong>― ダメージ計算 ―</strong><br>
+    ・ スペシャル vs ノーマル（勝利）：相手-2<br>
+    ・ スペシャル vs スペシャル（勝利）：相手-1、自分+1<br>
+    ・ スペシャル同士あいこ：両者-1<br>
+    ・ スペシャル vs ノーマル（敗北）：自分-1</p>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
+  </div>
+
+  <div id="pvp" class="hidden">
+    <div class="subtitle">交互入力対戦</div>
     <div id="status"></div>
-    <div id="choices">
-      <button onclick="makeMove('攻撃')">攻撃</button>
-      <button onclick="makeMove('防御')">防御</button>
-      <button onclick="makeMove('投げ')">投げ</button>
-      <button onclick="useSpecial()">★カードを使う</button>
+    <div id="inputArea"></div>
+    <div id="confirmArea" class="hidden">
+      <button onclick="revealMoves()">確認</button>
     </div>
-    <button onclick="showScreen('homeScreen')">ホームへ戻る</button>
+    <button onclick="showScreen('home')">ホームへ戻る</button>
   </div>
 
-  <script src="main.js"></script>
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll("div").forEach(d => d.classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
+    }
+
+    let player1 = { hp: 4, move: '', special: '', used: false };
+    let player2 = { hp: 4, move: '', special: '', used: false };
+    let turn = 1;
+
+    const specialOptions = ["フェイント", "カウンター", "スマッシュ"];
+
+    function startGame(mode) {
+      player1.hp = 4;
+      player2.hp = 4;
+      player1.special = randomSpecial();
+      player2.special = randomSpecial();
+      player1.used = false;
+      player2.used = false;
+      turn = 1;
+      showScreen("pvp");
+      nextTurn();
+    }
+
+    function randomSpecial() {
+      return specialOptions[Math.floor(Math.random() * specialOptions.length)];
+    }
+
+    function nextTurn() {
+      document.getElementById("inputArea").innerHTML = `
+        <p>ターン${turn}：プレイヤー1の選択</p>
+        <select id="p1move">
+          <option value="攻撃">攻撃</option>
+          <option value="防御">防御</option>
+          <option value="投げ">投げ</option>
+        </select>
+        <label><input type="checkbox" id="p1special"> ★カードを使う</label><br><br>
+        <button onclick="p1Choose()">決定</button>
+      `;
+      document.getElementById("confirmArea").classList.add("hidden");
+    }
+
+    function p1Choose() {
+      player1.move = document.getElementById("p1move").value;
+      player1.useSpecial = document.getElementById("p1special").checked && !player1.used;
+      document.getElementById("inputArea").innerHTML = `
+        <p>プレイヤー2の選択</p>
+        <select id="p2move">
+          <option value="攻撃">攻撃</option>
+          <option value="防御">防御</option>
+          <option value="投げ">投げ</option>
+        </select>
+        <label><input type="checkbox" id="p2special"> ★カードを使う</label><br><br>
+        <button onclick="p2Choose()">決定</button>
+      `;
+    }
+
+    function p2Choose() {
+      player2.move = document.getElementById("p2move").value;
+      player2.useSpecial = document.getElementById("p2special").checked && !player2.used;
+      document.getElementById("confirmArea").classList.remove("hidden");
+      document.getElementById("inputArea").innerHTML = `<p>両者選択済み。確認を押してください。</p>`;
+    }
+
+    function revealMoves() {
+      const resultText = `P1: ${player1.move}${player1.useSpecial ? '（★' + player1.special + '）' : ''} ／ 
+                          P2: ${player2.move}${player2.useSpecial ? '（★' + player2.special + '）' : ''}`;
+      document.getElementById("status").innerHTML = `<p>${resultText}</p><p>※ 判定ロジックは今後追加予定</p>`;
+      player1.used = player1.useSpecial ? true : player1.used;
+      player2.used = player2.useSpecial ? true : player2.used;
+      turn++;
+      setTimeout(nextTurn, 3000);
+    }
+  </script>
 </body>
 </html>
